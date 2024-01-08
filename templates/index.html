@@ -1,0 +1,26 @@
+{% load django_vite %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+    {% vite_hmr_client %}
+    <!-- {_% vite_react_refresh %} -->
+    {% if DEBUG %}
+    <script type="module" nonce="{{ request.csp_nonce }}">
+      import RefreshRuntime from 'http://localhost:5173/static/@react-refresh'
+      RefreshRuntime.injectIntoGlobalHook(window)
+      window.$RefreshReg$ = () => {}
+      window.$RefreshSig$ = () => (type) => type
+      window.__vite_plugin_react_preamble_installed__ = true
+    </script>
+    {% endif %}
+    {% vite_asset '/static/main.tsx' nonce=request.csp_nonce %}
+  </head>
+  <body>
+    {% csrf_token %}
+    <div id="root"></div>
+  </body>
+</html>
