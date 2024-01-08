@@ -20,7 +20,9 @@
     {% vite_asset '/static/main.tsx' nonce=request.csp_nonce %}
   </head>
   <body>
-    {% csrf_token %}
+    <script nonce="{{ request.csp_nonce }}">
+      window['csrf_token'] = '{{ csrf_token }}'
+    </script>
     <div id="root"></div>
   </body>
 </html>

@@ -36,7 +36,8 @@ function App() {
     const res = await fetch('/search?q='+q, {
       method: 'POST',
       headers: {
-        'X-CSRFToken': getCookie('csrftoken') || '',
+        // 'X-CSRFToken': getCookie('csrftoken') || '',
+        'X-CSRFToken': (window as any).csrf_token || getCookie('csrftoken') || '',
       }
     })
       .then(r => r.json())
